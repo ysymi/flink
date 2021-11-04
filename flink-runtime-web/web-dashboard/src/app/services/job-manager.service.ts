@@ -20,6 +20,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BASE_URL } from 'config';
 import { map } from 'rxjs/operators';
+import { JobManagerLogItemInterface } from 'interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +57,7 @@ export class JobManagerService {
    */
   loadLogList() {
     return this.httpClient
-      .get<{ logs: Array<{ name: string; size: number }> }>(`${BASE_URL}/jobmanager/logs`)
+      .get<{ logs: Array<JobManagerLogItemInterface> }>(`${BASE_URL}/jobmanager/logs`)
       .pipe(map(data => data.logs));
   }
 

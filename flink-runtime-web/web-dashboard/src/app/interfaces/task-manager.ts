@@ -32,8 +32,10 @@ export interface TaskManagerDetailInterface {
   memoryConfiguration: MemoryConfiguration;
 }
 
-export interface TaskManagerLogInterface {
-  logs: { name: string; size: number }[];
+export interface TaskManagerLogItemInterFace {
+  name: string;
+  size: number;
+  mtime: number;
 }
 
 export interface TaskmanagersItemInterface {

@@ -19,6 +19,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { JobManagerService } from 'services';
+import { JobManagerLogItemInterface } from 'interfaces';
 
 @Component({
   selector: 'flink-job-manager-log-list',
@@ -27,8 +28,13 @@ import { JobManagerService } from 'services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobManagerLogListComponent implements OnInit {
-  listOfLog: { name: string; size: number }[] = [];
+  listOfLog: JobManagerLogItemInterface[] = [];
   isLoading = true;
+  sortName: string;
+  sortValue: string;
+
+  sortLastModifyTimeFn = (pre: JobManagerLogItemInterface, next: JobManagerLogItemInterface) => pre.mtime - next.mtime;
+  sortSizeFn = (pre: JobManagerLogItemInterface, next: JobManagerLogItemInterface) => pre.size - next.size;
 
   trackByName = (_: number, log: { name: string; size: number }) => log.name;
 

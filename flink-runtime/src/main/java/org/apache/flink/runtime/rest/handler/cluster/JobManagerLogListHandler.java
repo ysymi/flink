@@ -77,7 +77,12 @@ public class JobManagerLogListHandler
         final List<LogInfo> logsWithLength =
                 Arrays.stream(logFiles)
                         .filter(File::isFile)
-                        .map(logFile -> new LogInfo(logFile.getName(), logFile.length()))
+                        .map(
+                                logFile ->
+                                        new LogInfo(
+                                                logFile.getName(),
+                                                logFile.length(),
+                                                logFile.lastModified()))
                         .collect(Collectors.toList());
         return CompletableFuture.completedFuture(new LogListInfo(logsWithLength));
     }

@@ -24,7 +24,7 @@ import { BASE_URL } from 'config';
 import {
   TaskManagerListInterface,
   TaskManagerDetailInterface,
-  TaskManagerLogInterface,
+  TaskManagerLogItemInterFace,
   TaskManagerThreadDumpInterface
 } from 'interfaces';
 
@@ -60,7 +60,7 @@ export class TaskManagerService {
    */
   loadLogList(taskManagerId: string) {
     return this.httpClient
-      .get<TaskManagerLogInterface>(`${BASE_URL}/taskmanagers/${taskManagerId}/logs`)
+      .get<{ logs: Array<TaskManagerLogItemInterFace> }>(`${BASE_URL}/taskmanagers/${taskManagerId}/logs`)
       .pipe(map(data => data.logs));
   }
 

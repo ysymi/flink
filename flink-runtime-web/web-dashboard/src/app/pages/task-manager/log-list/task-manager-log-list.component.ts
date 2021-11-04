@@ -17,6 +17,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { first, flatMap } from 'rxjs/operators';
 import { TaskManagerService } from 'services';
+import { TaskManagerLogItemInterFace } from 'interfaces';
 
 @Component({
   selector: 'flink-task-manager-log-list',
@@ -24,8 +25,14 @@ import { TaskManagerService } from 'services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskManagerLogListComponent implements OnInit {
-  listOfLog: { name: string; size: number }[] = [];
+  listOfLog: TaskManagerLogItemInterFace[] = [];
   isLoading = true;
+  sortName: string;
+  sortValue: string;
+
+  sortLastModifyTimeFn = (pre: TaskManagerLogItemInterFace, next: TaskManagerLogItemInterFace) =>
+    pre.mtime - next.mtime;
+  sortSizeFn = (pre: TaskManagerLogItemInterFace, next: TaskManagerLogItemInterFace) => pre.size - next.size;
 
   trackByName = (_: number, log: { name: string; size: number }) => log.name;
 

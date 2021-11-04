@@ -16,7 +16,7 @@
 
 <nz-card>
   <nz-table
-    nzBordered
+    #table
     [nzSize]="'small'"
     [nzData]="listOfLog"
     [nzLoading]="isLoading"
@@ -29,14 +29,16 @@
     <thead>
       <tr>
         <th>Log Name</th>
-        <th>Size (KB)</th>
+        <th [nzSortFn]="sortLastModifyTimeFn">Last Modify Time</th>
+        <th [nzSortFn]="sortSizeFn">Size (KB)</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let log of listOfLog;">
+      <tr *ngFor="let log of table.data;">
         <td>
           <a [routerLink]="[log.name]">{{ log.name }}</a>
         </td>
+        <td>{{ log.mtime | humanizeDate: 'yyyy-MM-dd HH:mm:ss' }}</td>
         <td>{{ (log.size / 1024) | number : '1.0-2' }}</td>
       </tr>
     </tbody>
